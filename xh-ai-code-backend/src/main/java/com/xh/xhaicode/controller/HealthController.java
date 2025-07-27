@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HealthController {
     @GetMapping("/check")
     public BaseResponse<String> checkHeath(){
-        return ResultUtils.success("ok2");
+        return ResultUtils.success("ok");
     }
 
 }
