@@ -2,6 +2,7 @@
 application-local.yml
 
 tmp
+sql
 
 HELP.md
 target/
