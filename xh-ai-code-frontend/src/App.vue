@@ -2,16 +2,19 @@
 # App.vue
 # 应用程序主入口文件
 # 作者：xingheng
-# 时间：2024-12-19
 -->
-
-<script setup lang="ts">
-import BasicLayout from '@/layouts/BasicLayout.vue'
-</script>
 
 <template>
   <BasicLayout />
 </template>
+
+<script setup lang="ts">
+import BasicLayout from '@/layouts/BasicLayout.vue'
+import { useLoginUserStore } from '@/stores/loginUser.ts'
+
+const loginUserStore = useLoginUserStore()
+loginUserStore.fetchLoginUser()
+</script>
 
 <style>
 /* 全局样式重置 */
