@@ -1,35 +1,29 @@
-<!--
-# App.vue
-# 应用程序主入口文件
-# 作者：xingheng
--->
+<script setup lang="ts">
+import BasicLayout from '@/layouts/BasicLayout.vue'
+</script>
 
 <template>
   <BasicLayout />
 </template>
 
-<script setup lang="ts">
-import BasicLayout from '@/layouts/BasicLayout.vue'
-import { useLoginUserStore } from '@/stores/loginUser.ts'
-
-const loginUserStore = useLoginUserStore()
-loginUserStore.fetchLoginUser()
-</script>
-
 <style>
-/* 全局样式重置 */
+/* 全局样式优化 */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-#app {
-  height: 100%;
+html {
+  overflow-x: hidden;
 }
 </style>
