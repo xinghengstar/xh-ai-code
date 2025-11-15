@@ -14,10 +14,7 @@ import com.xh.xhaicode.constants.UserConstant;
 import com.xh.xhaicode.exception.BusinessException;
 import com.xh.xhaicode.exception.ErrorCode;
 import com.xh.xhaicode.exception.ThrowUtils;
-import com.xh.xhaicode.model.dto.app.AppAddRequest;
-import com.xh.xhaicode.model.dto.app.AppAdminUpdateRequest;
-import com.xh.xhaicode.model.dto.app.AppDeployRequest;
-import com.xh.xhaicode.model.dto.app.AppQueryRequest;
+import com.xh.xhaicode.model.dto.app.*;
 import com.xh.xhaicode.model.entity.App;
 import com.xh.xhaicode.model.entity.User;
 import com.xh.xhaicode.model.enums.CodeGenTypeEnum;
@@ -132,7 +129,36 @@ public class AppController {
         return ResultUtils.success(deployUrl);
     }
 
-
+    /**
+     * 更新应用（用户只能更新自己的应用名称）
+     *
+     * @param appUpdateRequest 更新请求
+     * @param request          请求
+     * @return 更新结果
+     */
+    @PostMapping("/update")
+    public BaseResponse<Boolean> updateApp(@RequestBody AppUpdateRequest appUpdateRequest, HttpServletRequest request) {
+        if (appUpdateRequest == null || appUpdateRequest.getId() == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        User loginUser = userService.getLoginUser(request);
+        long id = appUpdateRequest.getId();
+        // 判断是否存在
+        App oldApp = appService.getById(id);
+        ThrowUtils.throwIf(oldApp == null, ErrorCode.NOT_FOUND_ERROR);
+        // 仅本人可更新
+        if (!oldApp.getUserId().equals(loginUser.getId())) {
+            throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
+        }
+        App app = new App();
+        app.setId(id);
+        app.setAppName(appUpdateRequest.getAppName());
+        // 设置编辑时间
+        app.setEditTime(LocalDateTime.now());
+        boolean result = appService.updateById(app);
+        ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
+        return ResultUtils.success(true);
+    }
 
     /**
      * 删除应用（用户只能删除自己的应用）
