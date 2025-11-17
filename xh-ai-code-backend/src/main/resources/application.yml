@@ -1,3 +1,4 @@
+# spring整合配置
 spring:
   application:
     name: xh-ai-code-backend
@@ -10,18 +11,35 @@ spring:
   # 读取配置文件
   profiles:
     active: local
+  # redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      ttl: 3600
+  # session 配置
+  session:
+    store-type: redis
+    # session 30 天过期
+    timeout: 2592000
 
+# 服务配置
 server:
   port: 8123
   servlet:
     context-path: /api
+  # cookie 30 天过期
+  session:
+    cookie:
+      max-age: 2592000
 
 # springdoc-openapi
 springdoc:
   group-configs:
     - group: 'default'
       packages-to-scan: com.xh.xhaicode.controller
-# knife4j
+
+# knife4j文档配置
 knife4j:
   enable: true
   setting:

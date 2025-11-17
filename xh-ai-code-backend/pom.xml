@@ -67,7 +67,8 @@
             <artifactId>mybatis-flex-spring-boot3-starter</artifactId>
             <version>1.11.0</version>
         </dependency>
-        <!-- 代码生成模块 -->
+
+        <!-- mybatis-flex依赖 -->
         <dependency>
             <groupId>com.mybatis-flex</groupId>
             <artifactId>mybatis-flex-codegen</artifactId>
@@ -90,6 +91,7 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+        <!--langchain4j 依赖 -->
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j</artifactId>
@@ -105,7 +107,24 @@
             <artifactId>langchain4j-reactor</artifactId>
             <version>1.1.0-beta7</version>
         </dependency>
+        <!-- langchain4j + redis 历史对话依赖 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-community-redis-spring-boot-starter</artifactId>
+            <version>1.1.0-beta7</version>
+        </dependency>
 
+        <!-- caffeine本地缓存依赖 -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+
+        <!-- springboot集成redis-session依赖 -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
