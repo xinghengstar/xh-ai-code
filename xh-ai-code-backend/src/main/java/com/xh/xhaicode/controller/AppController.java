@@ -11,6 +11,7 @@ import com.xh.xhaicode.common.DeleteRequest;
 import com.xh.xhaicode.common.ResultUtils;
 import com.xh.xhaicode.constants.AppConstant;
 import com.xh.xhaicode.constants.UserConstant;
+import com.xh.xhaicode.core.handler.StreamHandlerExecutor;
 import com.xh.xhaicode.exception.BusinessException;
 import com.xh.xhaicode.exception.ErrorCode;
 import com.xh.xhaicode.exception.ThrowUtils;
@@ -46,6 +47,8 @@ public class AppController {
     private AppService appService;
     @Resource
     private UserService userService;
+    @Resource
+    private StreamHandlerExecutor streamHandlerExecutor;
 
     /**
      * 聊天生成和保存代码，并流式输出
@@ -103,7 +106,7 @@ public class AppController {
         // 应用名称暂时为 initPrompt 前 12 位
         app.setAppName(initPrompt.substring(0, Math.min(initPrompt.length(), 12)));
         // 暂时设置为多文件生成
-        app.setCodeGenType(CodeGenTypeEnum.MULTI_FILE.getValue());
+        app.setCodeGenType(CodeGenTypeEnum.VUE_PROJECT.getValue());
         // 插入数据库
         boolean result = appService.save(app);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
